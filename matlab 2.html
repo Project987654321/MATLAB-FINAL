@@ -1,0 +1,955 @@
+<!--
+PUT ALL FILES IN SAME FOLDER
+
+Project Folder
+│
+├── index.html
+├── banner.jpg
+├── rank.png
+├── eigen.png
+├── macklaurin.png
+└── ode.png
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MATLAB Engineering Mathematics Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --secondary:#1d4ed8;
+    --dark:#0f172a;
+    --light:#f8fafc;
+    --border:#e2e8f0;
+    --success:#22c55e;
+    --danger:#ef4444;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:linear-gradient(to bottom right,#eff6ff,#f8fafc);
+    color:#1e293b;
+    display:flex;
+}
+
+/* SIDEBAR */
+
+aside{
+    width:290px;
+    height:100vh;
+    position:fixed;
+    overflow-y:auto;
+    background:linear-gradient(to bottom,#0f172a,#1e293b);
+    padding:30px 20px;
+    color:white;
+}
+
+.logo{
+    font-size:1.9rem;
+    font-weight:800;
+    text-decoration:none;
+    color:white;
+    display:block;
+    margin-bottom:30px;
+}
+
+.logo span{
+    color:#3b82f6;
+}
+
+.dashboard{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:18px;
+    margin-bottom:25px;
+}
+
+.progress-bar{
+    width:100%;
+    height:10px;
+    background:#334155;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+#progress{
+    width:0%;
+    height:100%;
+    background:var(--success);
+    transition:0.5s;
+}
+
+.nav-title{
+    font-size:0.75rem;
+    color:#94a3b8;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:25px 0 10px;
+}
+
+aside a{
+    display:block;
+    text-decoration:none;
+    color:#cbd5e1;
+    padding:12px 15px;
+    border-radius:10px;
+    margin-bottom:8px;
+    transition:0.3s;
+}
+
+aside a:hover{
+    background:rgba(255,255,255,0.08);
+    color:white;
+    transform:translateX(4px);
+}
+
+/* MAIN */
+
+main{
+    margin-left:290px;
+    width:calc(100% - 290px);
+    padding:40px;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border-radius:28px;
+    padding:60px;
+    box-shadow:0 15px 40px rgba(37,99,235,0.25);
+}
+
+.hero-flex{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+}
+
+.hero h1{
+    font-size:3.5rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    line-height:1.8;
+    font-size:1.05rem;
+    max-width:650px;
+}
+
+.hero img{
+    width:320px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* SECTIONS */
+
+section{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:24px;
+    margin-top:45px;
+    border:1px solid rgba(255,255,255,0.4);
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+h2{
+    color:var(--primary);
+    margin-bottom:15px;
+    font-size:2rem;
+}
+
+.topic-image{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:20px;
+    margin:20px 0;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* CODE */
+
+.code{
+    background:#011627;
+    color:#d6deeb;
+    padding:25px;
+    border-radius:16px;
+    margin-top:20px;
+    font-family:'JetBrains Mono',monospace;
+    line-height:1.7;
+    border-left:5px solid var(--primary);
+}
+
+.explanation{
+    background:#f0fdf4;
+    border:1px solid #bbf7d0;
+    padding:20px;
+    border-radius:16px;
+    margin-top:20px;
+}
+
+/* TRY YOURSELF */
+
+.lab{
+    border:2px dashed var(--border);
+    padding:25px;
+    border-radius:20px;
+    margin-top:25px;
+}
+
+.problem-box{
+    background:#eff6ff;
+    padding:18px;
+    border-radius:14px;
+    margin-top:15px;
+    border-left:5px solid var(--primary);
+}
+
+textarea{
+    width:100%;
+    height:140px;
+    margin-top:20px;
+    border:none;
+    border-radius:14px;
+    padding:15px;
+    background:#0f172a;
+    color:#10b981;
+    font-family:'JetBrains Mono';
+    font-size:1rem;
+}
+
+.console{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:black;
+    color:white;
+    font-family:'JetBrains Mono';
+}
+
+.solution-box{
+    display:none;
+    margin-top:18px;
+    padding:15px;
+    border-radius:12px;
+    background:#f8fafc;
+    border-left:5px solid var(--primary);
+    font-family:'JetBrains Mono';
+    line-height:1.8;
+}
+
+/* BUTTON */
+
+.btn{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:18px;
+}
+
+/* QUIZ */
+
+.quiz-card{
+    border:1px solid var(--border);
+    padding:22px;
+    border-radius:18px;
+    margin-top:20px;
+    background:white;
+}
+
+.options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:15px;
+}
+
+.option{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:white;
+    cursor:pointer;
+}
+
+.option:hover{
+    background:#dbeafe;
+}
+
+.correct{
+    background:#dcfce7 !important;
+    border-color:#22c55e !important;
+}
+
+.wrong{
+    background:#fee2e2 !important;
+    border-color:#ef4444 !important;
+}
+
+.feedback{
+    display:none;
+    margin-top:15px;
+    background:#f8fafc;
+    padding:15px;
+    border-radius:12px;
+    border-left:5px solid var(--primary);
+}
+
+/* CERTIFICATE */
+
+.certificate{
+    text-align:center;
+    background:linear-gradient(to right,#eff6ff,#ffffff);
+    border:2px solid #bfdbfe;
+}
+
+.certificate-box{
+    margin-top:30px;
+    padding:40px;
+    border:4px double var(--primary);
+    border-radius:20px;
+    background:white;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:50px;
+    color:#64748b;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+    flex-direction:column;
+}
+
+aside{
+    position:relative;
+    width:100%;
+    height:auto;
+}
+
+main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+}
+
+.hero-flex{
+    flex-direction:column;
+}
+
+.options{
+    grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside>
+
+<a href="#" class="logo">
+MATLAB<span>.Hub</span>
+</a>
+
+<div class="dashboard">
+
+<h3>Student Dashboard</h3>
+
+<div class="progress-bar">
+<div id="progress"></div>
+</div>
+
+<p style="margin-top:10px;">
+Score:
+<span id="score">0</span> / 40
+</p>
+
+</div>
+
+<div class="nav-title">Navigation</div>
+
+<a href="#home">Introduction</a>
+<a href="#rank">Matrix Rank</a>
+<a href="#eigen">Eigen Values</a>
+<a href="#maclaurin">Maclaurin Series</a>
+<a href="#ode">ODE Exactness</a>
+<a href="#documentation">Official Documentation</a>
+<a href="#certificate">Certificate</a>
+<a href="#about">About Us</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-flex">
+
+<div>
+
+<h1>
+Advanced Engineering Mathematics
+</h1>
+
+<p>
+Master MATLAB programming with engineering concepts,
+interactive simulations,
+coding challenges,
+and topic-wise MCQs.
+</p>
+
+<button class="btn">
+Start Learning
+</button>
+
+</div>
+
+<img src="banner.jpg" alt="MATLAB Banner">
+
+</div>
+
+</section>
+
+<!-- MODULES -->
+
+<div id="modules"></div>
+
+<!-- DOCUMENTATION -->
+
+<section id="documentation">
+
+<h2>Official MATLAB Documentation</h2>
+
+<ul style="margin-top:20px; line-height:2.2; padding-left:20px;">
+
+<li>
+<a href="https://www.mathworks.com/help/matlab/" target="_blank">
+MATLAB Official Documentation
+</a>
+</li>
+
+<li>
+<a href="https://www.mathworks.com/help/matlab/ref/rank.html" target="_blank">
+Matrix Rank Documentation
+</a>
+</li>
+
+<li>
+<a href="https://www.mathworks.com/help/matlab/ref/eig.html" target="_blank">
+Eigen Value Documentation
+</a>
+</li>
+
+<li>
+<a href="https://www.mathworks.com/help/symbolic/taylor.html" target="_blank">
+Maclaurin Series Documentation
+</a>
+</li>
+
+<li>
+<a href="https://www.mathworks.com/help/symbolic/diff.html" target="_blank">
+ODE & Differentiation Documentation
+</a>
+</li>
+
+</ul>
+
+</section>
+
+<!-- CERTIFICATE -->
+
+<section class="certificate" id="certificate">
+
+<h2>Course Completion Certificate</h2>
+
+<p style="margin-top:15px; line-height:1.8;">
+Complete all quizzes and coding practice to earn your certificate.
+</p>
+
+<div class="certificate-box">
+
+<h3>Certificate of Achievement</h3>
+
+<p style="font-size:1.2rem; margin-top:20px;">
+This certifies that
+</p>
+
+<input
+type="text"
+id="student-name"
+placeholder="Enter Your Full Name"
+style="
+margin-top:20px;
+padding:14px;
+width:60%;
+border-radius:12px;
+border:2px solid #2563eb;
+font-size:1rem;
+text-align:center;
+font-weight:700;
+"
+oninput="updateCertificateName()"
+/>
+
+<h1
+id="certificate-name"
+style="margin-top:25px; color:var(--primary);">
+STUDENT NAME
+</h1>
+
+<p style="margin-top:20px; font-size:1.1rem;">
+has successfully completed the
+</p>
+
+<h2 style="margin-top:15px;">
+MATLAB Engineering Mathematics Program
+</h2>
+
+<p style="margin-top:25px;">
+Issued on: 2026
+</p>
+
+<div
+id="completion-message"
+style="
+margin-top:20px;
+font-weight:700;
+color:#ef4444;
+">
+⚠ Complete 100% course progress to unlock certificate
+</div>
+
+<button
+class="btn"
+id="certificate-btn"
+onclick="downloadCertificate()"
+disabled
+style="
+opacity:0.5;
+cursor:not-allowed;
+">
+Download Certificate
+</button>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<h2>About Us</h2>
+
+<p style="margin-top:20px; line-height:2;">
+
+MATLAB Engineering Mathematics Hub is an educational platform
+developed for engineering students to practice MATLAB programming,
+learn advanced mathematics,
+solve coding problems,
+and prepare for university examinations.
+
+</p>
+
+</section>
+
+<footer>
+© 2026 MATLAB Engineering Learning Hub
+</footer>
+
+</main>
+
+<!-- SCRIPT -->
+
+<script>
+
+let score = 0;
+
+const modules = [
+
+{
+id:"rank",
+
+title:"Module 01 : Matrix Rank",
+
+image:"rank.png",
+
+description:
+"Matrix rank determines the number of independent rows or columns.",
+
+problem:
+"Write a MATLAB program to calculate the rank of matrix A = [1 0 0; 0 1 0; 1 1 0].",
+
+code:`A = [1 2 1;
+2 4 2;
+0 1 5];
+
+r = rank(A)
+
+disp(r)`,
+
+answer:`A = [1 0 0;
+0 1 0;
+1 1 0];
+
+rank(A)`,
+
+mcqs:[
+{
+q:"Command used for matrix rank?",
+o:["rank()","eig()","diff()","plot()"],
+c:0,
+e:"rank() is used to calculate matrix rank."
+}
+]
+}
+
+];
+
+function updateProgress(){
+
+document.getElementById("score").innerText = score;
+
+let totalQuestions = 1;
+
+let percent = (score / totalQuestions) * 100;
+
+document.getElementById("progress").style.width =
+percent + "%";
+
+if(percent >= 100){
+
+document.getElementById("certificate-btn").disabled = false;
+
+document.getElementById("certificate-btn").style.opacity = "1";
+
+document.getElementById("certificate-btn").style.cursor = "pointer";
+
+document.getElementById("completion-message").innerHTML =
+"✔ Congratulations! Certificate Unlocked";
+
+document.getElementById("completion-message").style.color =
+"#22c55e";
+
+}
+
+}
+
+function checkAnswer(btn,selected,correct,module,index,correctText,explanation){
+
+let grid =
+document.getElementById(`grid-${module}-${index}`);
+
+if(grid.classList.contains("done"))
+return;
+
+grid.classList.add("done");
+
+let buttons =
+grid.querySelectorAll(".option");
+
+buttons.forEach((b,i)=>{
+
+if(i===correct){
+b.classList.add("correct");
+}
+
+if(i===selected && selected!==correct){
+b.classList.add("wrong");
+}
+
+});
+
+let feed =
+document.getElementById(`feed-${module}-${index}`);
+
+feed.style.display = "block";
+
+if(selected===correct){
+
+score++;
+updateProgress();
+
+feed.innerHTML = `
+<b style="color:green;">✔ Correct Answer</b>
+<br><br>
+${explanation}
+`;
+
+}
+else{
+
+feed.innerHTML = `
+<b style="color:red;">✘ Wrong Answer</b>
+<br><br>
+Correct Answer:
+<b>${correctText}</b>
+<br><br>
+${explanation}
+`;
+
+}
+
+}
+
+function checkCode(id){
+
+let userCode =
+document.getElementById(`input-${id}`)
+.value
+.trim()
+.toLowerCase()
+.replace(/\s/g,'');
+
+let module =
+modules.find(m=>m.id===id);
+
+let correct =
+module.answer
+.toLowerCase()
+.replace(/\s/g,'');
+
+let consoleBox =
+document.getElementById(`console-${id}`);
+
+let solutionBox =
+document.getElementById(`solution-${id}`);
+
+consoleBox.style.display = "block";
+solutionBox.style.display = "block";
+
+if(userCode===correct){
+
+consoleBox.innerHTML =
+`<span style="color:#22c55e;">✔ Correct MATLAB Solution</span>`;
+
+}
+else{
+
+consoleBox.innerHTML =
+`<span style="color:#ef4444;">✘ Incorrect Solution</span>`;
+
+}
+
+solutionBox.innerHTML =
+`<b>Correct MATLAB Code:</b><br><br>${module.answer}`;
+
+}
+
+function updateCertificateName(){
+
+let name =
+document.getElementById("student-name").value;
+
+if(name.trim() === ""){
+
+document.getElementById("certificate-name").innerText =
+"STUDENT NAME";
+
+}
+else{
+
+document.getElementById("certificate-name").innerText =
+name;
+
+}
+
+}
+
+function downloadCertificate(){
+
+let name =
+document.getElementById("student-name").value;
+
+if(name.trim() === ""){
+
+alert("Please enter your name");
+
+return;
+
+}
+
+window.print();
+
+}
+
+function createModules(){
+
+let container =
+document.getElementById("modules");
+
+modules.forEach(mod=>{
+
+let section =
+document.createElement("section");
+
+section.id = mod.id;
+
+section.innerHTML = `
+
+<h2>${mod.title}</h2>
+
+<img src="${mod.image}" class="topic-image">
+
+<p>
+${mod.description}
+</p>
+
+<div class="code">
+${mod.code.replace(/\n/g,"<br>")}
+</div>
+
+<div class="explanation">
+
+<h3>Code Explanation</h3>
+
+<ul style="margin-top:10px; padding-left:20px; line-height:2;">
+
+<li>Defines MATLAB variables</li>
+<li>Uses built-in MATLAB functions</li>
+<li>Performs engineering calculations</li>
+<li>Displays computational results</li>
+
+</ul>
+
+</div>
+
+<div class="lab">
+
+<h3>Try It Yourself</h3>
+
+<div class="problem-box">
+
+<b>Problem Statement:</b>
+
+<p style="margin-top:10px; line-height:1.7;">
+${mod.problem}
+</p>
+
+</div>
+
+<textarea
+id="input-${mod.id}"
+placeholder="Write MATLAB code here...">
+</textarea>
+
+<button class="btn"
+onclick="checkCode('${mod.id}')">
+Check Solution
+</button>
+
+<div class="console"
+id="console-${mod.id}">
+</div>
+
+<div class="solution-box"
+id="solution-${mod.id}">
+</div>
+
+</div>
+
+<div style="margin-top:40px;">
+
+<h3>
+Topic Mastery Quiz
+</h3>
+
+${mod.mcqs.map((q,i)=>`
+
+<div class="quiz-card">
+
+<b>
+Q${i+1}. ${q.q}
+</b>
+
+<div class="options"
+id="grid-${mod.id}-${i}">
+
+${q.o.map((opt,oi)=>`
+
+<button class="option"
+onclick="checkAnswer(
+this,
+${oi},
+${q.c},
+'${mod.id}',
+${i},
+'${q.o[q.c]}',
+'${q.e}'
+)">
+${opt}
+</button>
+
+`).join("")}
+
+</div>
+
+<div class="feedback"
+id="feed-${mod.id}-${i}">
+</div>
+
+</div>
+
+`).join("")}
+
+</div>
+
+`;
+
+container.appendChild(section);
+
+});
+
+}
+
+createModules();
+
+</script>
+
+</body>
+</html>
